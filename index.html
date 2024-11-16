@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Perte de poids Défi 14 jours</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+        h1 {
+            color: #009688;
+        }
+        .info-box {
+            background-color: #d4edda;
+            color: #155724;
+            border: 2px solid #c3e6cb;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: flex-start;
+        }
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            text-align: left;
+            width: 100%;
+        }
+        input, select, button {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            width: 100%;
+        }
+        button {
+            background-color: #009688;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            width: auto;
+            align-self: center;
+        }
+        button:hover {
+            background-color: #00796b;
+        }
+        #result {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            font-size: 18px;
+            flex-wrap: wrap;
+        }
+        .result-circle {
+            background-color: #009688;
+            color: #fff;
+            width: 150px; /* Agrandissement des cercles */
+            height: 150px; /* Agrandissement des cercles */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            font-size: 16px;
+            padding: 10px;
+            text-align: center;
+        }
+        .ebook-image {
+            width: 100%;
+            max-width: 200px;
+            margin: 20px auto;
+        }
+        .buy-button {
+            background-color: #ffeb3b;
+            color: #333;
+            padding: 15px 25px;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            margin-top: 20px;
+            text-transform: uppercase;
+            width: 100%;
+            display: none; /* Hide initially */
+        }
+        .buy-button:hover {
+            background-color: #fdd835;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            .container {
+                padding: 15px;
+            }
+            .info-box {
+                font-size: 14px;
+                padding: 10px;
+            }
+            input, select, button, .buy-button {
+                font-size: 14px;
+            }
+            .result-circle {
+                width: 120px; /* Ajustement des cercles pour les mobiles */
+                height: 120px; /* Ajustement des cercles pour les mobiles */
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Perte de poids Défi 14 jours</h1>
+        <div class="info-box">
+            Avec ce calculateur tu vas pouvoir connaître tes calories de maintien : c'est les calories dont ton corps a besoin aujourd'hui et pour lequel tu ne perds pas de poids. Ton déficit calorique c'est le déficit calorique que tu vas pouvoir créer avec le défi 14 jours, pour finir tu auras l'estimation de ta perte de poids estimée en suivant le programme Défi 14 jours.
+        </div>
+        <img src="imgprog1400.png" alt="Ebook Programme 1400 calories" class="ebook-image">
+        <form id="weightLossForm">
+            <label for="sex">Sexe :</label>
+            <select id="sex">
+                <option value="male">Homme</option>
+                <option value="female">Femme</option>
+            </select>
+
+            <label for="age">Âge :</label>
+            <input type="number" id="age" required>
+
+            <label for="weight">Poids actuel (kg) :</label>
+            <input type="number" id="weight" required>
+
+            <label for="height">Taille (cm) :</label>
+            <input type="number" id="height" required>
+
+            <label for="activityLevel">Niveau d'activité :</label>
+            <select id="activityLevel">
+                <option value="sedentary">Sédentaire</option>
+                <option value="light">Légère</option>
+                <option value="moderate">Modérée</option>
+                <option value="active">Active</option>
+                <option value="veryActive">Très active</option>
+            </select>
+
+            <label for="targetWeight">Poids cible (kg) :</label>
+            <input type="number" id="targetWeight" required>
+
+            <button type="button" onclick="calculateWeightLoss()">Calculer</button>
+        </form>
+        <div id="result"></div>
+        <button id="buyButton" class="buy-button" onclick="window.location.href='https://payhip.com/b/elsIB'">Acheter maintenant</button>
+    </div>
+
+    <script>
+        function calculateWeightLoss() {
+            const sex = document.getElementById('sex').value;
+            const age = document.getElementById('age').value;
+            const weight = document.getElementById('weight').value;
+            const height = document.getElementById('height').value;
+            const activityLevel = document.getElementById('activityLevel').value;
+            const targetWeight = document.getElementById('targetWeight').value;
+
+            let bmr;
+            if (sex === 'male') {
+                bmr = 10 * weight + 6.25 * height - 5 * age + 5;
+            } else {
+                bmr = 10 * weight + 6.25 * height - 5 * age - 161;
+            }
+
+            const activityMultiplier = {
+                sedentary: 1.2,
+                light: 1.375,
+                moderate: 1.55,
+                active: 1.725,
+                veryActive: 1.9
+            };
+
+            const maintenanceCalories = bmr * activityMultiplier[activityLevel];
+            const dailyCalorieIntake = 1400;
+            const calorieDeficit = maintenanceCalories - dailyCalorieIntake;
+            const weightLossKgPerDay = calorieDeficit / 7700;
+            const weightLossKgPerMonth = weightLossKgPerDay * 30; // approximation pour un mois de 30 jours
+
+            document.getElementById('result').innerHTML = `
+                <div class="result-circle">Calories de maintien : ${maintenanceCalories.toFixed(2)} kcal/jour</div>
+                <div class="result-circle">Ton déficit quotidien avec le programme : ${calorieDeficit.toFixed(2)} kcal/jour</div>
+                <div class="result-circle">Perte de poids estimée : ${weightLossKgPerMonth.toFixed(2)} kg/mois</div>
+            `;
+
+            // Afficher le bouton Acheter maintenant après le calcul
+            document.getElementById('buyButton').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
