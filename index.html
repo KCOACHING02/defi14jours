@@ -170,7 +170,7 @@
             <button type="button" onclick="calculateWeightLoss()">Calculer</button>
         </form>
         <div id="result"></div>
-        <button id="buyButton" class="buy-button" onclick="window.location.href='https://payhip.com/b/8EcnW'">Acheter maintenant</button>
+        <button id="buyButton" class="buy-button" onclick="window.location.href='https://payhip.com/b/elsIB'">Acheter maintenant</button>
     </div>
 
     <script>
@@ -197,16 +197,16 @@
                 veryActive: 1.9
             };
 
-            const maintenanceCalories = bmr * activityMultiplier[activityLevel];
+            const maintenanceCalories = Math.round(bmr * activityMultiplier[activityLevel]);
             const dailyCalorieIntake = 1400;
-            const calorieDeficit = maintenanceCalories - dailyCalorieIntake;
+            const calorieDeficit = Math.round(maintenanceCalories - dailyCalorieIntake);
             const weightLossKgPerDay = calorieDeficit / 7700;
-            const weightLossKgPerMonth = weightLossKgPerDay * 30; // approximation pour un mois de 30 jours
+            const weightLossKgPerMonth = Math.ceil(weightLossKgPerDay * 30 * 10) / 10; // approximation pour un mois de 30 jours, arrondie à la première décimale supérieure
 
             document.getElementById('result').innerHTML = `
-                <div class="result-circle">Calories de maintien : ${maintenanceCalories.toFixed(2)} kcal/jour</div>
-                <div class="result-circle">Ton déficit quotidien avec le programme : ${calorieDeficit.toFixed(2)} kcal/jour</div>
-                <div class="result-circle">Perte de poids estimée : ${weightLossKgPerMonth.toFixed(2)} kg/mois</div>
+                <div class="result-circle">Calories de maintien : ${maintenanceCalories} kcal/jour</div>
+                <div class="result-circle">Ton déficit quotidien avec le programme : ${calorieDeficit} kcal/jour</div>
+                <div class="result-circle">Perte de poids estimée : ${weightLossKgPerMonth.toFixed(1)} kg/mois</div>
             `;
 
             // Afficher le bouton Acheter maintenant après le calcul
